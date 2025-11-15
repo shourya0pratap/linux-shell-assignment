@@ -15,23 +15,23 @@ mkdir -p "$log_file_path"
 
 # create log file if it doesn’t exist
 if [ ! -f "$log_file" ]; then
-    echo "Timestamp, CPU(%), Memory(%)" > "$log_file"
+echo "Timestamp, CPU(%), Memory(%)" > "$log_file"
 fi
 
 # infinite loop to log usage
 while true
 do
-    timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
-    # get CPU usage (user + system)
-    cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+# get CPU usage (user + system)
+cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
 
-    # get memory usage (%)
-    mem_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+# get memory usage (%)
+mem_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
 
-    # append to log file
-    echo "$timestamp, $cpu_usage, $mem_usage" >> "$log_file"
+# append to log file
+echo "$timestamp, $cpu_usage, $mem_usage" >> "$log_file"
 
-    # wait for the interval
-    sleep $interval
+# wait for the interval
+sleep $interval
 done
